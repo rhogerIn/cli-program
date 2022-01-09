@@ -28,6 +28,10 @@ export default class TerminalController {
         this.data = data
     }
 
+    closeTerminal() {
+        this.terminal.close()
+    }
+
     question(msg = '') {
         return new Promise(resolve => this.terminal.question(msg, resolve))
     }
