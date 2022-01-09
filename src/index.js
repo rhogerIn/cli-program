@@ -4,6 +4,9 @@ import Person from './person.js'
 
 const DEFAULT_LANG = "pt-BR"
 const STOP_TERMINAL = ":q"
+
+import { save } from './repositories/terminal.js'
+
 const terminalController = new TerminalController()
 
 terminalController.initializeTerminal(database, DEFAULT_LANG)
@@ -19,7 +22,8 @@ async function mainLoop() {
         }
 
         const person = Person.generateInstanceFromString(answer)
-        console.log('person', person.formated(DEFAULT_LANG))
+        terminalController.insertIntoTable(person.formated(DEFAULT_LANG))
+         await save(person)
         return mainLoop()
     } catch (error) {
         console.log("AN ERROR OCCURRED", error)
